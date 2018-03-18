@@ -1,0 +1,21 @@
+Package: aws.ml
+Type: Package
+Title: Package Template for 'the cloudyr project'
+Version: 0.1.1
+Date: 2018-03-18
+Authors@R: c(person("Thomas J.", "Leeper",
+                    role = c("aut", "cre"), 
+                    email = "thosjleeper@gmail.com",
+                    comment = c(ORCID = "0000-0003-4097-6326"))
+             )
+Description: Client for the Amazon Machine Learning <https://aws.amazon.com/aml/> 'API', a cloud machine learning service.
+License: GPL (>= 2)
+URL: https://github.com/cloudyr/aws.ml
+BugReports: https://github.com/cloudyr/aws.ml/issues
+Imports:
+    httr,
+    aws.signature,
+    aws.s3
+Suggests:
+    testthat
+RoxygenNote: 5.0.1
