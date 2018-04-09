@@ -31,7 +31,7 @@ function(
         bod$Recipe <- recipe
     }
     
-    out <- mlHTTP(body = bod, target = "AmazonML_20141212.CreateMLModel", ...)
+    out <- mlHTTP(body = bod, target = "CreateMLModel", ...)
     out
 }
 
@@ -46,7 +46,7 @@ function(
     bod <- list()
     bod$MLModelId <- id
     bod$Verbose <- include_recipe
-    out <- mlHTTP(body = bod, target = "AmazonML_20141212.GetMLModel", ...)
+    out <- mlHTTP(body = bod, target = "GetMLModel", ...)
     out
 }
 
@@ -59,7 +59,7 @@ function(
 ) {
     bod <- list()
     bod$MLModelId <- id
-    out <- mlHTTP(body = bod, target = "AmazonML_20141212.DeleteMLModel", ...)
+    out <- mlHTTP(body = bod, target = "DeleteMLModel", ...)
     out
 }
 

@@ -7,6 +7,7 @@
 #' @param compute_statistics A logical. This should be TRUE.
 #' @param iam_role If \code{specification} is for an RDS or Redshift source, an IAM role ARN.
 #' @param \dots
+#' @export
 create_data_source <-
 function(
   id,
@@ -27,7 +28,7 @@ function(
         bod$RoleARN <- iam_role
     }
     
-    out <- mlHTTP(body = bod, target = "AmazonML_20141212.CreateDataSourceFromS3", ...)
+    out <- mlHTTP(body = bod, target = "CreateDataSourceFromS3", ...)
     out
 }
 
@@ -39,7 +40,7 @@ function(
   ...
 ) {
     bod <- list(DataSourceId = id)
-    out <- mlHTTP(body = bod, target = "AmazonML_20141212.DeleteDataSource", ...)
+    out <- mlHTTP(body = bod, target = "DeleteDataSource", ...)
     out
 }
 

@@ -16,6 +16,6 @@ function(
     if (!is.null(token)) {
         bod$NextToken <- token
     }
-    out <- mlHTTP(body = bod, target = "AmazonML_20141212.DescribeDataSources", ...)
-    out
+    out <- mlHTTP(body = bod, action = "DescribeDataSources", ...)
+    out$Results
 }

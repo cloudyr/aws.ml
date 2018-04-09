@@ -1,7 +1,8 @@
 #' @title Execute Amazon ML API Request
 #' @description This is the workhorse function to execute calls to the Amazon ML API.
+#' @param action A character string specifying an API endpoint.
+#' @param query An optional named list containing query string parameters and their character values.
 #' @param body A list.
-#' @param target A character string specifying the API endpoint target.
 #' @param region A character string containing an AWS region. If missing, the default \dQuote{us-east-1} is used.
 #' @param key A character string containing an AWS Access Key ID. See \code{\link[aws.signature]{locate_credentials}}.
 #' @param secret A character string containing an AWS Secret Access Key. See \code{\link[aws.signature]{locate_credentials}}.
@@ -17,8 +18,9 @@
 #' @export
 mlHTTP <- 
 function(
+  action,
+  query = list(),
   body = NULL,
-  target,
   region = Sys.getenv("AWS_DEFAULT_REGION","us-east-1"), 
   key = NULL, 
   secret = NULL, 
@@ -33,16 +35,19 @@ function(
            service = "machinelearning",
            verb = "POST",
            action = "/",
-           query_args = NULL,
+           query_args = query,
            canonical_headers = list(host = paste0("machinelearning.",region,".amazonaws.com"),
-                                    `x-amz-date` = d_timestamp),
+                                    `x-amz-date` = d_timestamp,
+                                    "X-Amz-Target" = paste0("AmazonML_20141212.", action),
+                                    "Content-Type" = "application/x-amz-json-1.1"),
            request_body = if (length(body)) jsonlite::toJSON(body, auto_unbox = TRUE) else "",
            key = key,
            secret = secret,
            session_token = session_token)
     headers <- list(`x-amz-date` = d_timestamp,
                     `x-amz-content-sha256` = Sig$BodyHash,
-                    `X-Amz-Target` = target,
+                    `X-Amz-Target` = paste0("AmazonML_20141212.", action),
+                    "Content-Type" = "application/x-amz-json-1.1",
                     Authorization = Sig$SignatureHeader)
     if (!is.null(session_token) && session_token != "") {
         headers[["x-amz-security-token"]] <- session_token
